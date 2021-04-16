@@ -10,15 +10,29 @@ import Foundation
 struct GameSet {
     var cards = Array<Card>()
     
-    let shapes = ("diamond","squiggle","oval")
-    let shadings = ("solid","striped","open")
-    let colors = ("red","green","purple")
+    let shapes = ["diamond","squiggle","oval"]
+    let shadings = ["solid","striped","open"]
+    let colors = ["red","green","purple"]
+    
+    init() {
+        var id = 0
+        for shape in shapes {
+            for shading in shadings {
+                for color in colors {
+                    for numberOfShapes in 1...3 {
+                        cards.append(Card(id: id, numberOfShapes: numberOfShapes, shape: shape, shading: shading, color: color))
+                        id += 1
+                    }
+                }
+            }
+        }
+    }
 }
 
 struct Card {
     var id: Int
-    var numberOfShapes: Int
-    var shape: String
-    var shading: String
-    var color: String
+    let numberOfShapes: Int
+    let shape: String
+    let shading: String
+    let color: String
 }
