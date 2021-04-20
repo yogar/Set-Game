@@ -8,20 +8,22 @@
 
 /* Begin PBXBuildFile section */
 		5A342E092628857B00FA5687 /* Game_SetApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A342E082628857B00FA5687 /* Game_SetApp.swift */; };
-		5A342E0B2628857B00FA5687 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A342E0A2628857B00FA5687 /* ContentView.swift */; };
+		5A342E0B2628857B00FA5687 /* GameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A342E0A2628857B00FA5687 /* GameView.swift */; };
 		5A342E0D2628857E00FA5687 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5A342E0C2628857E00FA5687 /* Assets.xcassets */; };
 		5A342E102628857E00FA5687 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5A342E0F2628857E00FA5687 /* Preview Assets.xcassets */; };
-		5A342E192628899300FA5687 /* Game Set.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A342E182628899300FA5687 /* Game Set.swift */; };
+		5A342E192628899300FA5687 /* GameModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A342E182628899300FA5687 /* GameModel.swift */; };
+		5A43F9DE262AD53700836AEC /* GameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A43F9DD262AD53700836AEC /* GameViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		5A342E052628857B00FA5687 /* Game Set.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Game Set.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5A342E082628857B00FA5687 /* Game_SetApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Game_SetApp.swift; sourceTree = "<group>"; };
-		5A342E0A2628857B00FA5687 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		5A342E0A2628857B00FA5687 /* GameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameView.swift; sourceTree = "<group>"; };
 		5A342E0C2628857E00FA5687 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5A342E0F2628857E00FA5687 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		5A342E112628857E00FA5687 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		5A342E182628899300FA5687 /* Game Set.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Game Set.swift"; sourceTree = "<group>"; };
+		5A342E182628899300FA5687 /* GameModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameModel.swift; sourceTree = "<group>"; };
+		5A43F9DD262AD53700836AEC /* GameViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,8 +57,9 @@
 			isa = PBXGroup;
 			children = (
 				5A342E082628857B00FA5687 /* Game_SetApp.swift */,
-				5A342E182628899300FA5687 /* Game Set.swift */,
-				5A342E0A2628857B00FA5687 /* ContentView.swift */,
+				5A342E182628899300FA5687 /* GameModel.swift */,
+				5A43F9DD262AD53700836AEC /* GameViewModel.swift */,
+				5A342E0A2628857B00FA5687 /* GameView.swift */,
 				5A342E0C2628857E00FA5687 /* Assets.xcassets */,
 				5A342E112628857E00FA5687 /* Info.plist */,
 				5A342E0E2628857E00FA5687 /* Preview Content */,
@@ -141,9 +144,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5A342E0B2628857B00FA5687 /* ContentView.swift in Sources */,
+				5A342E0B2628857B00FA5687 /* GameView.swift in Sources */,
 				5A342E092628857B00FA5687 /* Game_SetApp.swift in Sources */,
-				5A342E192628899300FA5687 /* Game Set.swift in Sources */,
+				5A342E192628899300FA5687 /* GameModel.swift in Sources */,
+				5A43F9DE262AD53700836AEC /* GameViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -281,7 +285,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.Game-Set";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.Game-Set.sss";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -303,7 +307,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.Game-Set";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.Game-Set.sss";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
