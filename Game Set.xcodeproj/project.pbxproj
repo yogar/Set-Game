@@ -12,6 +12,7 @@
 		5A342E0D2628857E00FA5687 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5A342E0C2628857E00FA5687 /* Assets.xcassets */; };
 		5A342E102628857E00FA5687 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5A342E0F2628857E00FA5687 /* Preview Assets.xcassets */; };
 		5A342E192628899300FA5687 /* GameModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A342E182628899300FA5687 /* GameModel.swift */; };
+		5A4022D4262F188B003FB6B5 /* DiamondShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A4022D3262F188B003FB6B5 /* DiamondShape.swift */; };
 		5A43F9DE262AD53700836AEC /* GameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A43F9DD262AD53700836AEC /* GameViewModel.swift */; };
 /* End PBXBuildFile section */
 
@@ -23,6 +24,7 @@
 		5A342E0F2628857E00FA5687 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		5A342E112628857E00FA5687 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5A342E182628899300FA5687 /* GameModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameModel.swift; sourceTree = "<group>"; };
+		5A4022D3262F188B003FB6B5 /* DiamondShape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiamondShape.swift; sourceTree = "<group>"; };
 		5A43F9DD262AD53700836AEC /* GameViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -58,6 +60,7 @@
 			children = (
 				5A342E082628857B00FA5687 /* Game_SetApp.swift */,
 				5A342E182628899300FA5687 /* GameModel.swift */,
+				5A4022D3262F188B003FB6B5 /* DiamondShape.swift */,
 				5A43F9DD262AD53700836AEC /* GameViewModel.swift */,
 				5A342E0A2628857B00FA5687 /* GameView.swift */,
 				5A342E0C2628857E00FA5687 /* Assets.xcassets */,
@@ -146,6 +149,7 @@
 			files = (
 				5A342E0B2628857B00FA5687 /* GameView.swift in Sources */,
 				5A342E092628857B00FA5687 /* Game_SetApp.swift in Sources */,
+				5A4022D4262F188B003FB6B5 /* DiamondShape.swift in Sources */,
 				5A342E192628899300FA5687 /* GameModel.swift in Sources */,
 				5A43F9DE262AD53700836AEC /* GameViewModel.swift in Sources */,
 			);

@@ -8,11 +8,16 @@
 import Foundation
 
 struct GameSet {
+
     var cards = Array<Card>()
-    var countOfSelected: Int?
-    {
-        selectedCardsIndices?.count ?? nil
+    private let numberOfShapes = 3
+    
+    private var countOfSelected: Int? {
+        get {
+            selectedCardsIndices?.count ?? nil
+        }
     }
+    
     private var selectedCardsIndices: [Int]? {
         get {
             cards.indices.filter {
@@ -20,48 +25,45 @@ struct GameSet {
             }
         }
     }
-
-    
-    let shapes = ["diamond","squiggle","oval"]
-    let shadings = ["solid","striped","open"]
-    let colors = ["red","green","purple"]
-    let numberOfShapes = 3
     
     init() {
-        for shape in shapes {
-            for shading in shadings {
-                for color in colors {
+        for shape in ShapeType.allCases {
+            for shading in ShapeShading.allCases {
+                for color in ShapeColor.allCases {
                     for numberOfShapes in 1...numberOfShapes {
                         cards.append(Card(id: cards.count, numberOfShapes: numberOfShapes, shape: shape, shading: shading, color: color))
                     }
                 }
             }
         }
-        cards.shuffle()
-        for index in 0..<12 {
+//        cards.shuffle()
+        for index in cards.indices {
             cards[index].onTable = true
         }
     }
     
+    
     mutating func isSet(of indices:[Int]) {
-        print(indices)
-        if cards[indices[0]].numberOfShapes == cards[indices[1]].numberOfShapes && cards[indices[1]].numberOfShapes == cards[indices[2]].numberOfShapes {
-            cards[indices[0]].inSet = true
-            cards[indices[1]].inSet = true
-            cards[indices[2]].inSet = true
- 
-        } else
-        if cards[indices[0]].numberOfShapes != cards[indices[1]].numberOfShapes && cards[indices[1]].numberOfShapes != cards[indices[2]].numberOfShapes && cards[indices[0]].numberOfShapes != cards[indices[2]].numberOfShapes {
-            cards[indices[0]].inSet = true
-            cards[indices[1]].inSet = true
-            cards[indices[2]].inSet = true
-        }
+        if ((cards[indices[0]].numberOfShapes == cards[indices[1]].numberOfShapes && cards[indices[1]].numberOfShapes == cards[indices[2]].numberOfShapes) || (cards[indices[0]].numberOfShapes != cards[indices[1]].numberOfShapes && cards[indices[1]].numberOfShapes != cards[indices[2]].numberOfShapes && cards[indices[0]].numberOfShapes != cards[indices[2]].numberOfShapes))
+            && ((cards[indices[0]].shape == cards[indices[1]].shape && cards[indices[1]].shape == cards[indices[2]].shape) || (cards[indices[0]].shape != cards[indices[1]].shape && cards[indices[1]].shape != cards[indices[2]].shape && cards[indices[0]].shape != cards[indices[2]].shape))
+            && ((cards[indices[0]].shading == cards[indices[1]].shading && cards[indices[1]].shading == cards[indices[2]].shading) || (cards[indices[0]].shading != cards[indices[1]].shading && cards[indices[1]].shading != cards[indices[2]].shading && cards[indices[0]].shading != cards[indices[2]].shading))
+            && ((cards[indices[0]].color == cards[indices[1]].color && cards[indices[1]].color == cards[indices[2]].color) || (cards[indices[0]].color != cards[indices[1]].color && cards[indices[1]].color != cards[indices[2]].color && cards[indices[0]].color != cards[indices[2]].color))
+            {
+                cards[indices[0]].inSet = true
+                cards[indices[1]].inSet = true
+                cards[indices[2]].inSet = true
+            }
     }
     
+    //Selects or deselects card. Deselects cards if user selects 4-th card. Checks for set if there are three selected cards.
     mutating func select(card: Card) {
         if let firstIndex = cards.firstIndex(of: card) {
+            if countOfSelected == 3 {
+                for index in selectedCardsIndices! {
+                    cards[index].isSelected = false
+                }
+            }
             cards[firstIndex].isSelected = !cards[firstIndex].isSelected
-            print(countOfSelected!)
             if countOfSelected == 3 {
                 isSet(of: selectedCardsIndices!)
             }
@@ -80,7 +82,19 @@ struct Card: Identifiable, Equatable {
         }
     }
     let numberOfShapes: Int
-    let shape: String
-    let shading: String
-    let color: String
+    let shape: ShapeType
+    let shading: ShapeShading
+    let color: ShapeColor
+}
+
+enum ShapeType: CaseIterable {
+    case diamond, squiggle, oval
+}
+
+enum ShapeShading: CaseIterable {
+    case solid, stripped, open
+}
+
+enum ShapeColor: String, CaseIterable {
+    case red, green, purple
 }
