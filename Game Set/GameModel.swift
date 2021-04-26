@@ -36,8 +36,8 @@ struct GameSet {
                 }
             }
         }
-//        cards.shuffle()
-        for index in cards.indices {
+        cards.shuffle()
+        for index in 0..<12 {
             cards[index].onTable = true
         }
     }

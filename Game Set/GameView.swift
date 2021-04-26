@@ -8,20 +8,21 @@ import SwiftUI
 
 struct GameView: View {
     @ObservedObject var viewModel = GameViewModel()
-    let columns: [GridItem] = Array(repeating: GridItem.init(.flexible()), count: 3)
+    let columns = [
+        GridItem(.adaptive(minimum: 100), spacing: 0)
+    ]
     var body: some View {
-        ScrollView {
-            LazyVGrid(columns: columns) {
-                ForEach(viewModel.cards) {card in
-                    if card.onTable {
-                        CardView(card: card)
-                            .onTapGesture {
-                                viewModel.select(card: card)
-                            }
-                    }
+        LazyVGrid(columns: columns) {
+            ForEach(viewModel.cards) {card in
+                if card.onTable {
+                    CardView(card: card)
+                        .onTapGesture {
+                            viewModel.select(card: card)
+                        }
                 }
             }
         }
+        .padding()
     }
 }
 
@@ -37,36 +38,43 @@ struct CardView: View {
         card.shading == .open ? true : false
     }
     var body: some View {
-        ZStack {
-            if card.isSelected {
+        GeometryReader { geometry in
+            ZStack {
                 RoundedRectangle(cornerRadius: 10)
-                .stroke(Color.blue, lineWidth: 3)
-            } else {
-                RoundedRectangle(cornerRadius: 10)
-                .stroke(/*@START_MENU_TOKEN@*/Color.blue/*@END_MENU_TOKEN@*/, lineWidth: /*@START_MENU_TOKEN@*/1.0/*@END_MENU_TOKEN@*/)
-            }
-            VStack {
-                ForEach(0..<card.numberOfShapes) {_ in
-                    switch card.shape {
-                    case .oval: Ellipse()
-                    case .diamond: Diamond().stroke(lineWidth: 2).background(Diamond().fill(isSolid ? Color(card.color.rawValue) : Color.clear))
-                    case .squiggle: Rectangle().strokeBorder(Color(card.color.rawValue), lineWidth: 2).background(Rectangle().fill(isSolid ? Color(card.color.rawValue) : Color.clear))
+                    .stroke(Color.gray, lineWidth: card.isSelected ? 3 : 2)
+                VStack {
+                    ForEach(0..<card.numberOfShapes, id: \.self) {_ in
+                        switch card.shape {
+                        case .oval: Ellipse()
+                            .strokeBorder(isOpen ? Color(card.color.rawValue) : Color.clear, lineWidth: 2)
+                            .background(Ellipse().fill(isSolid ||  isStripped ? Color(card.color.rawValue) : Color.clear))
+                            .opacity(isStripped ? 0.5 : 1)
+                            .frame(height: geometry.size.height/5)
+                        case .diamond: Diamond()
+                            .strokeBorder(isOpen ? Color(card.color.rawValue) : Color.clear, lineWidth: 2)
+                            .background(Diamond().fill(isSolid ||  isStripped ? Color(card.color.rawValue) : Color.clear))
+                            .opacity(isStripped ? 0.5 : 1)
+                            .frame(height: geometry.size.height/5)
+                        case .squiggle: Rectangle()
+                            .strokeBorder(isOpen ? Color(card.color.rawValue) : Color.clear, lineWidth: 2)
+                            .background(Rectangle().fill(isSolid ||  isStripped ? Color(card.color.rawValue) : Color.clear))
+                            .opacity(isStripped ? 0.5 : 1)
+                            .frame(height: geometry.size.height/5)
+                        }
                     }
                 }
-                Ellipse().stroke().fill()
-                Text(String(card.id))
+                .padding()
             }
-//            .opacity(isStripped ? 0.7 : 1)
-//            .foregroundColor(isSolid ? Color(card.color.rawValue) : Color.clear)
-            .padding()
         }
         .aspectRatio(2/3,contentMode: .fit)
-        .padding()
+        .padding(5)
+//        .border(Color.gray)
     }
 }
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         GameView()
+            .previewDevice("iPhone 11")
     }
 }
