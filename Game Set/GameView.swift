@@ -9,18 +9,17 @@ import SwiftUI
 struct GameView: View {
     @ObservedObject var viewModel = GameViewModel()
     let columns = [
-        GridItem(.adaptive(minimum: 100), spacing: 0)
+        GridItem(.adaptive(minimum: 70, maximum: 110), spacing: 0)
     ]
     var body: some View {
-        LazyVGrid(columns: columns) {
-            ForEach(viewModel.cards) {card in
-                if card.onTable {
-                    CardView(card: card)
-                        .onTapGesture {
-                            viewModel.select(card: card)
-                        }
+        let cardsOnTable = viewModel.cards.filter {
+            card in card.onTable
+        }
+        Grid(cardsOnTable) {card in
+            CardView(card: card)
+                .onTapGesture {
+                    viewModel.select(card: card)
                 }
-            }
         }
         .padding()
     }
@@ -49,25 +48,25 @@ struct CardView: View {
                             .strokeBorder(isOpen ? Color(card.color.rawValue) : Color.clear, lineWidth: 2)
                             .background(Ellipse().fill(isSolid ||  isStripped ? Color(card.color.rawValue) : Color.clear))
                             .opacity(isStripped ? 0.5 : 1)
-                            .frame(height: geometry.size.height/5)
+                            .frame(height: geometry.size.height*0.2)
                         case .diamond: Diamond()
                             .strokeBorder(isOpen ? Color(card.color.rawValue) : Color.clear, lineWidth: 2)
                             .background(Diamond().fill(isSolid ||  isStripped ? Color(card.color.rawValue) : Color.clear))
                             .opacity(isStripped ? 0.5 : 1)
-                            .frame(height: geometry.size.height/5)
+                            .frame(height: geometry.size.height*0.2)
                         case .squiggle: Rectangle()
                             .strokeBorder(isOpen ? Color(card.color.rawValue) : Color.clear, lineWidth: 2)
                             .background(Rectangle().fill(isSolid ||  isStripped ? Color(card.color.rawValue) : Color.clear))
                             .opacity(isStripped ? 0.5 : 1)
-                            .frame(height: geometry.size.height/5)
+                            .frame(height: geometry.size.height*0.2)
                         }
                     }
                 }
-                .padding()
+                .padding((geometry.size.height-0.6)*0.1)
             }
         }
-        .aspectRatio(2/3,contentMode: .fit)
-        .padding(5)
+//        .aspectRatio(2/3,contentMode: .fit)
+        .padding(4)
 //        .border(Color.gray)
     }
 }

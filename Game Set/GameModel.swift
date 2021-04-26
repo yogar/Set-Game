@@ -26,6 +26,14 @@ struct GameSet {
         }
     }
     
+    var cardsOnTable: [Card] {
+        get {
+            cards.filter {
+                card in card.onTable
+            }
+        }
+    }
+    
     init() {
         for shape in ShapeType.allCases {
             for shading in ShapeShading.allCases {

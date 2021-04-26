@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5A00FA162636F18200A3754D /* GridLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A00FA152636F18200A3754D /* GridLayout.swift */; };
+		5A00FA192636F1D600A3754D /* Grid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A00FA182636F1D600A3754D /* Grid.swift */; };
 		5A342E092628857B00FA5687 /* Game_SetApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A342E082628857B00FA5687 /* Game_SetApp.swift */; };
 		5A342E0B2628857B00FA5687 /* GameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A342E0A2628857B00FA5687 /* GameView.swift */; };
 		5A342E0D2628857E00FA5687 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5A342E0C2628857E00FA5687 /* Assets.xcassets */; };
@@ -17,6 +19,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5A00FA152636F18200A3754D /* GridLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridLayout.swift; sourceTree = "<group>"; };
+		5A00FA182636F1D600A3754D /* Grid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Grid.swift; sourceTree = "<group>"; };
 		5A342E052628857B00FA5687 /* Game Set.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Game Set.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5A342E082628857B00FA5687 /* Game_SetApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Game_SetApp.swift; sourceTree = "<group>"; };
 		5A342E0A2628857B00FA5687 /* GameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameView.swift; sourceTree = "<group>"; };
@@ -63,6 +67,8 @@
 				5A4022D3262F188B003FB6B5 /* DiamondShape.swift */,
 				5A43F9DD262AD53700836AEC /* GameViewModel.swift */,
 				5A342E0A2628857B00FA5687 /* GameView.swift */,
+				5A00FA152636F18200A3754D /* GridLayout.swift */,
+				5A00FA182636F1D600A3754D /* Grid.swift */,
 				5A342E0C2628857E00FA5687 /* Assets.xcassets */,
 				5A342E112628857E00FA5687 /* Info.plist */,
 				5A342E0E2628857E00FA5687 /* Preview Content */,
@@ -150,7 +156,9 @@
 				5A342E0B2628857B00FA5687 /* GameView.swift in Sources */,
 				5A342E092628857B00FA5687 /* Game_SetApp.swift in Sources */,
 				5A4022D4262F188B003FB6B5 /* DiamondShape.swift in Sources */,
+				5A00FA162636F18200A3754D /* GridLayout.swift in Sources */,
 				5A342E192628899300FA5687 /* GameModel.swift in Sources */,
+				5A00FA192636F1D600A3754D /* Grid.swift in Sources */,
 				5A43F9DE262AD53700836AEC /* GameViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
