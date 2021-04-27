@@ -65,9 +65,8 @@ struct CardView: View {
                 .padding((geometry.size.height-0.6)*0.1)
             }
         }
-//        .aspectRatio(2/3,contentMode: .fit)
+        .aspectRatio(2/3, contentMode: .fit)
         .padding(4)
-//        .border(Color.gray)
     }
 }
 
