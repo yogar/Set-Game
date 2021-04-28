@@ -7,7 +7,7 @@
 import Foundation
 
 class GameViewModel: ObservableObject {
-    @Published var model: GameSet
+    @Published private var model: GameSet
 
     init() {
         model = GameSet()
@@ -19,8 +19,11 @@ class GameViewModel: ObservableObject {
         model.cards
     }
     
-    
     func select(card: Card) {
         model.select(card: card)
+    }
+    
+    func startGame() {
+        model = GameSet()
     }
 }

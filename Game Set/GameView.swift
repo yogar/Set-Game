@@ -15,11 +15,18 @@ struct GameView: View {
         let cardsOnTable = viewModel.cards.filter {
             card in card.onTable
         }
-        Grid(cardsOnTable) {card in
-            CardView(card: card)
-                .onTapGesture {
-                    viewModel.select(card: card)
+        VStack(alignment: .leading) {
+            Button("New Game") {
+                withAnimation(.easeIn) {
+                    viewModel.startGame()
                 }
+            }
+            Grid(cardsOnTable) {card in
+                CardView(card: card)
+                    .onTapGesture {
+                        viewModel.select(card: card)
+                    }
+            }
         }
         .padding()
     }
