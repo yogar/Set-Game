@@ -55,26 +55,31 @@ struct CardView: View {
                             .strokeBorder(isOpen ? Color(card.color.rawValue) : Color.clear, lineWidth: 2)
                             .background(Ellipse().fill(isSolid ||  isStripped ? Color(card.color.rawValue) : Color.clear))
                             .opacity(isStripped ? 0.5 : 1)
-                            .frame(height: geometry.size.height*0.2)
+                            .frame(height: geometry.size.height*shapeSizeMultiplier)
                         case .diamond: Diamond()
                             .strokeBorder(isOpen ? Color(card.color.rawValue) : Color.clear, lineWidth: 2)
                             .background(Diamond().fill(isSolid ||  isStripped ? Color(card.color.rawValue) : Color.clear))
                             .opacity(isStripped ? 0.5 : 1)
-                            .frame(height: geometry.size.height*0.2)
+                            .frame(height: geometry.size.height*shapeSizeMultiplier)
                         case .squiggle: Rectangle()
                             .strokeBorder(isOpen ? Color(card.color.rawValue) : Color.clear, lineWidth: 2)
                             .background(Rectangle().fill(isSolid ||  isStripped ? Color(card.color.rawValue) : Color.clear))
                             .opacity(isStripped ? 0.5 : 1)
-                            .frame(height: geometry.size.height*0.2)
+                            .frame(height: geometry.size.height*shapeSizeMultiplier)
                         }
                     }
                 }
-                .padding((geometry.size.height-0.6)*0.1)
+                .padding((geometry.size.height-shapeSizeMultiplier*3)*shapeSizeMultiplier)
             }
+            .aspectRatio(2/3, contentMode: .fit)
+            .padding(4)
+            .rotationEffect(Angle.degrees(card.inSet ? 5 : 0))
+            .animation(Animation.easeIn(duration: 0.1))
         }
-        .aspectRatio(2/3, contentMode: .fit)
-        .padding(4)
     }
+    
+    // MARK: - Visual Constants
+    let shapeSizeMultiplier: CGFloat = 0.1
 }
 
 struct ContentView_Previews: PreviewProvider {
