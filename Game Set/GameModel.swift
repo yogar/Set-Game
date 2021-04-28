@@ -11,6 +11,7 @@ struct GameSet {
 
     var cards = Array<Card>()
     private let numberOfShapes = 3
+    private let cardsOnTable = 12
     
     private var countOfSelected: Int? {
         get {
@@ -26,14 +27,6 @@ struct GameSet {
         }
     }
     
-    var cardsOnTable: [Card] {
-        get {
-            cards.filter {
-                card in card.onTable
-            }
-        }
-    }
-    
     init() {
         for shape in ShapeType.allCases {
             for shading in ShapeShading.allCases {
@@ -45,7 +38,7 @@ struct GameSet {
             }
         }
         cards.shuffle()
-        for index in 0..<12 {
+        for index in 0..<cardsOnTable {
             cards[index].onTable = true
         }
     }
