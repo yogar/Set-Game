@@ -11,18 +11,20 @@ struct GameSet {
 
     var cards = Array<Card>()
     private let numberOfShapes = 3
-    private let cardsOnTable = 12
+    private let numberOfCardsAtStart = 12
     
-    private var countOfSelected: Int? {
+    private var selectedCardsIndices: [Int] {
         get {
-            selectedCardsIndices?.count ?? nil
+            cards.indices.filter { index in
+                cards[index].isSelected
+            }
         }
     }
-    
-    private var selectedCardsIndices: [Int]? {
+
+    private var readyToPlayCardsIndices: [Int] {
         get {
-            cards.indices.filter {
-                index in cards[index].isSelected
+            cards.indices.filter { index in
+                !cards[index].onTable && !cards[index].inSet
             }
         }
     }
@@ -38,7 +40,7 @@ struct GameSet {
             }
         }
         cards.shuffle()
-        for index in 0..<cardsOnTable {
+        for index in 0..<numberOfCardsAtStart {
             cards[index].onTable = true
         }
     }
@@ -59,14 +61,30 @@ struct GameSet {
     //Selects or deselects card. Deselects cards if user selects 4-th card. Checks for set if there are three selected cards.
     mutating func select(card: Card) {
         if let firstIndex = cards.firstIndex(of: card) {
-            if countOfSelected == 3 {
-                for index in selectedCardsIndices! {
+            if selectedCardsIndices.count == 3 {
+                for index in selectedCardsIndices {
                     cards[index].isSelected = false
                 }
             }
             cards[firstIndex].isSelected = !cards[firstIndex].isSelected
-            if countOfSelected == 3 {
-                isSet(of: selectedCardsIndices!)
+            if selectedCardsIndices.count == 3 {
+                isSet(of: selectedCardsIndices)
+            }
+        }
+    }
+    
+    mutating func addCards() {
+        if selectedCardsIndices.count == 3 {
+            for index in selectedCardsIndices {
+                if cards[index].inSet {
+                    cards[index].onTable = false
+                }
+            }
+        }
+        if !readyToPlayCardsIndices.isEmpty {
+//            print(readyToPlayCardsIndices)
+            for index in 0...2 {
+                cards[readyToPlayCardsIndices[index]].onTable = true
             }
         }
     }
@@ -74,14 +92,16 @@ struct GameSet {
 
 struct Card: Identifiable, Equatable {
     var id: Int
-    var onTable: Bool = false
-    var isSelected: Bool = false
-    var inSet: Bool = false {
-        didSet {
-//            onTable = false
-            isSelected = false
+    var onTable: Bool = false {
+        willSet {
+            if newValue == false {
+                self.isSelected = false
+            }
         }
     }
+    var isSelected: Bool = false
+    var inSet: Bool = false
+    
     let numberOfShapes: Int
     let shape: ShapeType
     let shading: ShapeShading

@@ -12,15 +12,23 @@ struct GameView: View {
     
     var cardsOnTable:[Card] {
         viewModel.cards.filter {
-        card in (card.onTable && showCards)
+            card in (card.onTable && showCards)
         }
     }
 
     var body: some View {
-        VStack(alignment: .leading) {
-            Button("New Game") {
-                withAnimation(.easeInOut(duration: 1.5)) {
-                    viewModel.startGame()
+        VStack() {
+            HStack() {
+                Button("New Game") {
+                    withAnimation(.easeInOut(duration: 1.5)) {
+                        viewModel.startGame()
+                    }
+                }
+                Spacer()
+                Button("Add Cards") {
+                    withAnimation(.spring()) {
+                        viewModel.addCards()
+                    }
                 }
             }
             Grid(cardsOnTable) {card in

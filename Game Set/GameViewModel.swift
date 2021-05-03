@@ -26,4 +26,8 @@ class GameViewModel: ObservableObject {
     func startGame() {
         model = GameSet()
     }
+    
+    func addCards() {
+        model.addCards()
+    }
 }
