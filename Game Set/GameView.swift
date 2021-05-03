@@ -8,24 +8,27 @@ import SwiftUI
 
 struct GameView: View {
     @ObservedObject var viewModel = GameViewModel()
-    let columns = [
-        GridItem(.adaptive(minimum: 70, maximum: 110), spacing: 0)
-    ]
-    var body: some View {
-        let cardsOnTable = viewModel.cards.filter {
-            card in card.onTable
+    @State private var showCards = false
+    
+    var cardsOnTable:[Card] {
+        viewModel.cards.filter {
+        card in (card.onTable && showCards)
         }
+    }
+
+    var body: some View {
         VStack(alignment: .leading) {
             Button("New Game") {
-                withAnimation(.easeIn) {
-                    viewModel.startGame()
-                }
+                viewModel.startGame()
             }
             Grid(cardsOnTable) {card in
                 CardView(card: card)
                     .onTapGesture {
                         viewModel.select(card: card)
                     }
+            }
+            .onAppear {
+                showCards = true
             }
         }
         .padding()
@@ -47,44 +50,44 @@ struct CardView: View {
         GeometryReader { geometry in
             ZStack {
                 RoundedRectangle(cornerRadius: 10)
-                    .stroke(Color.gray, lineWidth: card.isSelected ? 3 : 2)
+                    .stroke(card.isSelected ? Color.black : Color.gray , lineWidth: 2)
+                    .opacity(card.isSelected ? 0.8 : 0.5)
                 VStack {
                     ForEach(0..<card.numberOfShapes, id: \.self) {_ in
                         switch card.shape {
                         case .oval: Ellipse()
                             .strokeBorder(isOpen ? Color(card.color.rawValue) : Color.clear, lineWidth: 2)
-                            .background(Ellipse().fill(isSolid ||  isStripped ? Color(card.color.rawValue) : Color.clear))
+                            .background(Ellipse().fill(isSolid || isStripped ? Color(card.color.rawValue) : Color.clear))
                             .opacity(isStripped ? 0.5 : 1)
                             .frame(height: geometry.size.height*shapeSizeMultiplier)
                         case .diamond: Diamond()
                             .strokeBorder(isOpen ? Color(card.color.rawValue) : Color.clear, lineWidth: 2)
-                            .background(Diamond().fill(isSolid ||  isStripped ? Color(card.color.rawValue) : Color.clear))
+                            .background(Diamond().fill(isSolid || isStripped ? Color(card.color.rawValue) : Color.clear))
                             .opacity(isStripped ? 0.5 : 1)
                             .frame(height: geometry.size.height*shapeSizeMultiplier)
                         case .squiggle: Rectangle()
                             .strokeBorder(isOpen ? Color(card.color.rawValue) : Color.clear, lineWidth: 2)
-                            .background(Rectangle().fill(isSolid ||  isStripped ? Color(card.color.rawValue) : Color.clear))
+                            .background(Rectangle().fill(isSolid || isStripped ? Color(card.color.rawValue) : Color.clear))
                             .opacity(isStripped ? 0.5 : 1)
                             .frame(height: geometry.size.height*shapeSizeMultiplier)
                         }
                     }
                 }
-                .padding((geometry.size.height-shapeSizeMultiplier*3)*shapeSizeMultiplier)
+                .padding([.trailing,.leading],(geometry.size.width-3*shapeSizeMultiplier)*shapeSizeMultiplier)
             }
             .aspectRatio(2/3, contentMode: .fit)
             .padding(4)
             .rotationEffect(Angle.degrees(card.inSet ? 5 : 0))
-            .animation(Animation.easeIn(duration: 0.1))
+//            .transition(.scale)
         }
     }
     
     // MARK: - Visual Constants
-    let shapeSizeMultiplier: CGFloat = 0.1
+    let shapeSizeMultiplier: CGFloat = 0.15
 }
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        GameView()
-            .previewDevice("iPhone 11")
+        CardView(card: Card(id: 2, numberOfShapes: 3, shape: .oval, shading: .stripped, color: .red))
     }
 }

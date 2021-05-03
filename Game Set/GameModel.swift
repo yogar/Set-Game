@@ -78,7 +78,7 @@ struct Card: Identifiable, Equatable {
     var isSelected: Bool = false
     var inSet: Bool = false {
         didSet {
-            onTable = false
+//            onTable = false
             isSelected = false
         }
     }
