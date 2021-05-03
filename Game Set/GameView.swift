@@ -19,16 +19,21 @@ struct GameView: View {
     var body: some View {
         VStack(alignment: .leading) {
             Button("New Game") {
-                viewModel.startGame()
+                withAnimation(.easeInOut(duration: 1.5)) {
+                    viewModel.startGame()
+                }
             }
             Grid(cardsOnTable) {card in
                 CardView(card: card)
                     .onTapGesture {
                         viewModel.select(card: card)
                     }
+                    .transition(.offset(x: CGFloat.random(in: -2000...2000), y: CGFloat.random(in: -2000...2000)))
             }
             .onAppear {
-                showCards = true
+                withAnimation(.easeInOut(duration: 1.5)) {
+                    showCards = true
+                }
             }
         }
         .padding()
@@ -78,7 +83,6 @@ struct CardView: View {
             .aspectRatio(2/3, contentMode: .fit)
             .padding(4)
             .rotationEffect(Angle.degrees(card.inSet ? 5 : 0))
-//            .transition(.scale)
         }
     }
     
