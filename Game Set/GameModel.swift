@@ -82,9 +82,9 @@ struct GameSet {
             }
         }
         if !readyToPlayCardsIndices.isEmpty {
-//            print(readyToPlayCardsIndices)
-            for index in 0...2 {
-                cards[readyToPlayCardsIndices[index]].onTable = true
+            let readyToPlay = readyToPlayCardsIndices[0..<3]
+            readyToPlay.forEach { index in
+                cards[index].onTable = true
             }
         }
     }
