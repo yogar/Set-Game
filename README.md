@@ -1,7 +1,7 @@
 # Set card game (https://en.wikipedia.org/wiki/Set_(card_game)) for iOS
 This repository is my work in progress on assignment #3 «Set» at Stanford University's course CS193p. Lectures are available for everyone at https://cs193p.sites.stanford.edu/
 
-Assignment 3 Set
+## Assignment 3 Set
 
 Required Tasks 
 
