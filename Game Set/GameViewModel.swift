@@ -19,6 +19,10 @@ class GameViewModel: ObservableObject {
         model.cards
     }
     
+    var readyToPlayCardsCount: Int {
+        model.readyToPlayCardsIndices.count
+    }
+    
     func select(card: Card) {
         model.select(card: card)
     }

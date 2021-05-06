@@ -30,6 +30,7 @@ struct GameView: View {
                         viewModel.addCards()
                     }
                 }
+                .disabled(viewModel.readyToPlayCardsCount > 0 ? false : true)
             }
             Grid(cardsOnTable) {card in
                 CardView(card: card)

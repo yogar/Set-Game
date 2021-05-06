@@ -21,7 +21,7 @@ struct GameSet {
         }
     }
 
-    private var readyToPlayCardsIndices: [Int] {
+    var readyToPlayCardsIndices: [Int] {
         get {
             cards.indices.filter { index in
                 !cards[index].onTable && !(cards[index].setStatus == .set)
@@ -39,7 +39,7 @@ struct GameSet {
                 }
             }
         }
-//        cards.shuffle()
+        cards.shuffle()
         for index in 0..<numberOfCardsAtStart {
             cards[index].onTable = true
         }
