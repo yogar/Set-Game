@@ -90,13 +90,14 @@ struct CardView: View {
             }
             .aspectRatio(2/3, contentMode: .fit)
             .padding(4)
-            .rotationEffect(Angle.degrees(card.inSet ? 5 : 0))
+            .rotationEffect(Angle.degrees(card.setStatus == .set ? 5 : 0))
+            .rotationEffect(Angle.degrees(card.setStatus == .notSet ? Double.random(in:(-5...0)) : 0))
         }
     }
     
     // MARK: - Visual Constants
     let shapeSizeMultiplier: CGFloat = 0.15
-} 
+}
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {

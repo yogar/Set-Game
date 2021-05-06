@@ -24,7 +24,7 @@ struct GameSet {
     private var readyToPlayCardsIndices: [Int] {
         get {
             cards.indices.filter { index in
-                !cards[index].onTable && !cards[index].inSet
+                !cards[index].onTable && !(cards[index].setStatus == .set)
             }
         }
     }
@@ -61,6 +61,11 @@ struct GameSet {
     
     //Selects or deselects card. Deselects cards if user selects 4-th card. Checks for set if there are 3 selected cards.
     mutating func select(card: Card) {
+        for index in selectedCardsIndices {
+            if cards[index].setStatus == .notSet {
+                cards[index].setStatus = .unknown
+            }
+        }
         let firstIndex = cards.firstIndex(of: card)!
         if selectedCardsIndices.count == 3 {
             for index in selectedCardsIndices {
@@ -71,11 +76,11 @@ struct GameSet {
         if selectedCardsIndices.count == 3 {
             if isSet(of: selectedCardsIndices) {
                 for index in selectedCardsIndices {
-                    cards[index].inSet = true
+                    cards[index].setStatus = .set
                 }
             } else {
                 for index in selectedCardsIndices {
-                    cards[index].inSet = false
+                    cards[index].setStatus = .notSet
                 }
             }
         }
@@ -84,7 +89,7 @@ struct GameSet {
     mutating func addCards() {
         if selectedCardsIndices.count == 3 {
             for index in selectedCardsIndices {
-                if cards[index].inSet {
+                if cards[index].setStatus == .set {
                     cards[index].onTable = false
                 }
             }
@@ -94,6 +99,7 @@ struct GameSet {
                 cards[index].onTable = true
             }
         }
+        
     }
 }
 
@@ -107,12 +113,16 @@ struct Card: Identifiable, Equatable {
         }
     }
     var isSelected: Bool = false
-    var inSet: Bool = false
+    var setStatus: SetStatus = .unknown
     
     let numberOfShapes: Int
     let shape: ShapeType
     let shading: ShapeShading
     let color: ShapeColor
+}
+
+enum SetStatus {
+    case unknown, set, notSet
 }
 
 enum ShapeType: CaseIterable {
