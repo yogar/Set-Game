@@ -39,36 +39,44 @@ struct GameSet {
                 }
             }
         }
-        cards.shuffle()
+//        cards.shuffle()
         for index in 0..<numberOfCardsAtStart {
             cards[index].onTable = true
         }
     }
     
     
-    mutating func isSet(of indices:[Int]) {
+    private func isSet(of indices:[Int]) -> Bool {
         if ((cards[indices[0]].numberOfShapes == cards[indices[1]].numberOfShapes && cards[indices[1]].numberOfShapes == cards[indices[2]].numberOfShapes) || (cards[indices[0]].numberOfShapes != cards[indices[1]].numberOfShapes && cards[indices[1]].numberOfShapes != cards[indices[2]].numberOfShapes && cards[indices[0]].numberOfShapes != cards[indices[2]].numberOfShapes))
             && ((cards[indices[0]].shape == cards[indices[1]].shape && cards[indices[1]].shape == cards[indices[2]].shape) || (cards[indices[0]].shape != cards[indices[1]].shape && cards[indices[1]].shape != cards[indices[2]].shape && cards[indices[0]].shape != cards[indices[2]].shape))
             && ((cards[indices[0]].shading == cards[indices[1]].shading && cards[indices[1]].shading == cards[indices[2]].shading) || (cards[indices[0]].shading != cards[indices[1]].shading && cards[indices[1]].shading != cards[indices[2]].shading && cards[indices[0]].shading != cards[indices[2]].shading))
             && ((cards[indices[0]].color == cards[indices[1]].color && cards[indices[1]].color == cards[indices[2]].color) || (cards[indices[0]].color != cards[indices[1]].color && cards[indices[1]].color != cards[indices[2]].color && cards[indices[0]].color != cards[indices[2]].color))
             {
-                cards[indices[0]].inSet = true
-                cards[indices[1]].inSet = true
-                cards[indices[2]].inSet = true
+                return true
             }
+        else {
+            return false
+        }
     }
     
-    //Selects or deselects card. Deselects cards if user selects 4-th card. Checks for set if there are three selected cards.
+    //Selects or deselects card. Deselects cards if user selects 4-th card. Checks for set if there are 3 selected cards.
     mutating func select(card: Card) {
-        if let firstIndex = cards.firstIndex(of: card) {
-            if selectedCardsIndices.count == 3 {
-                for index in selectedCardsIndices {
-                    cards[index].isSelected = false
-                }
+        let firstIndex = cards.firstIndex(of: card)!
+        if selectedCardsIndices.count == 3 {
+            for index in selectedCardsIndices {
+                cards[index].isSelected = false
             }
-            cards[firstIndex].isSelected = !cards[firstIndex].isSelected
-            if selectedCardsIndices.count == 3 {
-                isSet(of: selectedCardsIndices)
+        }
+        cards[firstIndex].isSelected = !cards[firstIndex].isSelected
+        if selectedCardsIndices.count == 3 {
+            if isSet(of: selectedCardsIndices) {
+                for index in selectedCardsIndices {
+                    cards[index].inSet = true
+                }
+            } else {
+                for index in selectedCardsIndices {
+                    cards[index].inSet = false
+                }
             }
         }
     }
@@ -82,8 +90,7 @@ struct GameSet {
             }
         }
         if !readyToPlayCardsIndices.isEmpty {
-            let readyToPlay = readyToPlayCardsIndices[0..<3]
-            readyToPlay.forEach { index in
+            for index in readyToPlayCardsIndices[0..<3] {
                 cards[index].onTable = true
             }
         }

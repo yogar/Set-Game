@@ -96,7 +96,7 @@ struct CardView: View {
     
     // MARK: - Visual Constants
     let shapeSizeMultiplier: CGFloat = 0.15
-}
+} 
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
