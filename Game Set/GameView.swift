@@ -34,7 +34,9 @@ struct GameView: View {
             Grid(cardsOnTable) {card in
                 CardView(card: card)
                     .onTapGesture {
-                        viewModel.select(card: card)
+                        withAnimation {
+                            viewModel.select(card: card)
+                        }
                     }
                     .transition(.offset(x: CGFloat.random(in: -2000...2000), y: CGFloat.random(in: -2000...2000)))
             }
@@ -65,6 +67,7 @@ struct CardView: View {
                 RoundedRectangle(cornerRadius: 10)
                     .stroke(card.isSelected ? Color.black : Color.gray , lineWidth: 2)
                     .opacity(card.isSelected ? 0.8 : 0.5)
+                    .animation(.easeIn(duration:0.1))
                 VStack {
                     ForEach(0..<card.numberOfShapes, id: \.self) {_ in
                         switch card.shape {

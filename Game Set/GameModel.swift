@@ -70,6 +70,9 @@ struct GameSet {
         if selectedCardsIndices.count == 3 {
             for index in selectedCardsIndices {
                 cards[index].isSelected = false
+                if cards[index].setStatus == .set {
+                    cards[index].onTable = false
+                }
             }
         }
         cards[firstIndex].isSelected = !cards[firstIndex].isSelected
@@ -99,7 +102,6 @@ struct GameSet {
                 cards[index].onTable = true
             }
         }
-        
     }
 }
 
